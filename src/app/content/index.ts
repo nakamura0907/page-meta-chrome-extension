@@ -1,6 +1,19 @@
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === 'getDOM') {
-        const content = document.body.innerText;
-        sendResponse(content);
-    }
-    });
+chrome.runtime.onMessage.addListener((_message, _sender, sendResponse) => {
+  const title = document.title;
+  const description = document
+    .querySelector('meta[name="description"]')
+    ?.getAttribute("content");
+
+  const response = [
+    {
+      label: "ページタイトル",
+      value: title,
+    },
+    {
+      label: "ページ説明",
+      value: description,
+    },
+  ];
+
+  sendResponse(response);
+});
