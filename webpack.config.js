@@ -45,8 +45,12 @@ let options = {
       patterns: [
         {
           from: 'src/manifest.json', to: 'manifest.json', transform(content) {
-            const jsonContent = JSON.parse(content.toString());
-            return JSON.stringify(jsonContent, null, 0);
+            console.log(process.env.npm_package_version)
+            return JSON.stringify({
+              description: process.env.npm_package_description,
+              version: process.env.npm_package_version,
+              ...JSON.parse(content.toString()),
+            }, null, 0)
           },
         },
       ],
