@@ -39,9 +39,19 @@ const Popup: React.FC = () => {
         const { label, value } = meta;
         if (!value) return null;
         return (
-          <div key={label}>
-            <div>{label}</div>
-            <div>{value}</div>
+          <div key={label} className="pagemeta-container">
+            <div className="pagemeta-label">{label}</div>
+            <div className="pagemeta-value-container">
+              <div className="pagemeta-value">{value}</div>
+              <button
+                className="pagemeta-copy-button"
+                onClick={async () => {
+                  await global.navigator.clipboard.writeText(value);
+                }}
+              >
+                Copy
+              </button>
+            </div>
           </div>
         );
       })}
